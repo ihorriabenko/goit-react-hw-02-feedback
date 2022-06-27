@@ -1,0 +1,8 @@
+ {positiveFeedback === 0 ? <Notification message="There is no feedback"></Notification> : <FeedbackOptions options={this.state} onLeaveFeedback={this.setVote}></FeedbackOptions>
+    <Statistics
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      total={total}
+      positivePercentage={positiveFeedback}
+    ></Statistics>}

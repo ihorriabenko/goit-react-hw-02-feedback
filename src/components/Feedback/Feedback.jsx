@@ -1,6 +1,7 @@
-import React, { Children } from 'react';
+import React from 'react';
 
 import Section from './Section';
+import Notification from './Notification';
 import FeedbackOptions from './FeedbackOptions';
 import Statistics from './Statistics';
 
@@ -13,50 +14,28 @@ class Feedback extends React.Component {
     positiveFeedback: 0,
   };
 
-  handleIncrementGood = () => {
+  setVote = (vote) => {
     this.setState(prevState => {
       return {
-        good: prevState.good + 1,
-      };
-    });
+        [vote]: prevState[vote] +1,
+      }
+    })
     this.countTotalFeedback();
     this.countPositiveFeedbackPercentage();
-  };
-
-  handleIncrementNeutral = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
-  };
-
-  handleIncrementBad = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
-      };
-    });
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
-  };
+  }
 
   countTotalFeedback = () => {
-    this.setState(state => {
+    this.setState(prevState => {
       return {
-        ...state,
-        total: state.good + state.bad + state.neutral,
+        total: prevState.good + prevState.bad + prevState.neutral,
       };
     });
   };
 
   countPositiveFeedbackPercentage = () => {
-    this.setState(state => {
+    this.setState(prevState => {
       return {
-        ...state,
-        positiveFeedback: Math.round((state.good / state.total) * 100),
+        positiveFeedback: Math.round((prevState.good / prevState.total) * 100),
       };
     });
   };
@@ -65,7 +44,8 @@ class Feedback extends React.Component {
     const { good, neutral, bad, total, positiveFeedback } = this.state;
     return (
       <Section title="Please leave feedback">
-        <FeedbackOptions></FeedbackOptions>
+      <Notification message="There is no feedback"></Notification>
+        <FeedbackOptions options={this.state} onLeaveFeedback={this.setVote}></FeedbackOptions>
         <Statistics
           good={good}
           neutral={neutral}
