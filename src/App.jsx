@@ -10,49 +10,51 @@ class App extends React.Component {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    positiveFeedback: 0,
   };
 
-  setVote = (vote) => {
+  setVote = vote => {
     this.setState(prevState => {
       return {
-        [vote]: prevState[vote] +1,
-      }
-    })
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
-  }
-
-  countTotalFeedback = () => {
-    this.setState(prevState => {
-      return {
-        total: prevState.good + prevState.bad + prevState.neutral,
+        [vote]: prevState[vote] + 1,
       };
     });
+  };
+
+  countTotalFeedback = () => {
+    const { good, bad, neutral } = this.state;
+
+    return good + bad + neutral;
   };
 
   countPositiveFeedbackPercentage = () => {
-    this.setState(prevState => {
-      return {
-        positiveFeedback: Math.round((prevState.good / prevState.total) * 100),
-      };
-    });
+    const { good } = this.state;
+    const total = this.countTotalFeedback();
+
+    if (total === 0) {
+      return 0
+    } else {
+      return Math.round((good / total) * 100);
+    }
   };
 
   render() {
-    const { good, neutral, bad, total, positiveFeedback } = this.state;
+    const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
+
     return (
       <Section title="Please leave feedback">
-      <Notification message="There is no feedback"></Notification>
-        <FeedbackOptions options={this.state} onLeaveFeedback={this.setVote}></FeedbackOptions>
-        <Statistics
+        {!Boolean(total) && <Notification message="There is no feedback"></Notification>}
+        <FeedbackOptions
+          options={this.state}
+          onLeaveFeedback={this.setVote}
+        ></FeedbackOptions>
+        {Boolean(total) && <Statistics
           good={good}
           neutral={neutral}
           bad={bad}
-          total={total}
-          positivePercentage={positiveFeedback}
-        ></Statistics>
+          total={this.countTotalFeedback()}
+          positivePercentage={this.countPositiveFeedbackPercentage()}
+        ></Statistics>}
       </Section>
     );
   }

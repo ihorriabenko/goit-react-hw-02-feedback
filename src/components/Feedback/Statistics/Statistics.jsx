@@ -1,21 +1,22 @@
-const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
+import s from './statistics.module.scss';
+
+const Statistics = ({ good, neutral, bad, total, positivePercentage}) => (
   <div>
-    <h3>Statistics</h3>
-    <ul>
+    <ul className={s.list}>
       <li>
-        <p>Good:{good}</p>
+        <p>Good:<span className={s.textEl}>{good}</span></p>
       </li>
       <li>
-        <p>Neutral:{neutral}</p>
+        <p>Neutral:<span className={s.textEl}>{neutral}</span></p>
       </li>
       <li>
-        <p>Bad:{bad}</p>
+        <p>Bad:<span className={s.textEl}>{bad}</span></p>
       </li>
       <li>
-        <p>Total:{total}</p>
+        <p>Total:<span className={s.textEl}>{total}</span></p>
       </li>
       <li>
-        <p>Positive feedback:{positivePercentage}&#37;</p>
+        <p>Positive feedback:<span className={s.textEl}>{positivePercentage}&#37;</span></p>
       </li>
     </ul>
   </div>

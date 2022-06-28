@@ -1,6 +1,8 @@
+import s from './notification.module.scss';
+
 const Notification = ({message}) => (
   <>
-    <p>{message}</p>
+    <p className={s.text}>{message}</p>
   </>
 )
 
