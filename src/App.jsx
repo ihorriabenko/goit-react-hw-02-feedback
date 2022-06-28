@@ -42,12 +42,15 @@ class App extends React.Component {
     const total = this.countTotalFeedback();
 
     return (
+      <>
       <Section title="Please leave feedback">
-        {!Boolean(total) && <Notification message="There is no feedback"></Notification>}
         <FeedbackOptions
-          options={this.state}
+          options={Object.keys(this.state)}
           onLeaveFeedback={this.setVote}
         ></FeedbackOptions>
+        </Section>
+      <Section title="Statistics">
+        {!Boolean(total) && <Notification message="There is no feedback"></Notification>}
         {Boolean(total) && <Statistics
           good={good}
           neutral={neutral}
@@ -55,7 +58,8 @@ class App extends React.Component {
           total={this.countTotalFeedback()}
           positivePercentage={this.countPositiveFeedbackPercentage()}
         ></Statistics>}
-      </Section>
+        </Section>
+        </>
     );
   }
 }

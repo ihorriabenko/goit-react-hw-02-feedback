@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import s from './section.module.scss';
 
 const Section = ({ title, children }) => (
@@ -6,5 +8,9 @@ const Section = ({ title, children }) => (
     {children}
   </section>
 );
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+}
 
 export default Section;

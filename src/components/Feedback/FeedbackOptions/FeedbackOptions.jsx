@@ -1,26 +1,29 @@
+import PropTypes from 'prop-types';
+
 import s from './feedback-options.module.scss'
 
-const FeedbackOptions = ({ good, neutral, bad, onLeaveFeedback }) => (
-  <div>
+const FeedbackOptions = ({good, neutral, bad, onLeaveFeedback }) => (
   <ul className={s.list}>
-    <li className={s.item}>
+    <li key={good} className={s.item}>
       <button className={s.btn} type="button" onClick={() => onLeaveFeedback('good')}>
         Good
       </button>
     </li>
-    <li className={s.item}>
+    <li key={neutral} className={s.item}>
       <button className={s.btn} type="button" onClick={() => onLeaveFeedback('neutral')}>
         Neutral
       </button>
     </li>
-    <li className={s.item}>
+    <li key={bad} className={s.item}>
       <button className={s.btn} type="button" onClick={() => onLeaveFeedback('bad')}>
         Bad
       </button>
     </li>
   </ul>
-  <h3 className={s.title}>Statistics</h3>
-  </div>
 );
+
+FeedbackOptions.propTypes = {
+  onLeaveFeedback: PropTypes.func.isRequired,
+}
 
 export default FeedbackOptions;
