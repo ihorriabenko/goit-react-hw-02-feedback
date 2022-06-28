@@ -1,5 +1,3 @@
-import React from 'react';
-
 const FeedbackOptions = ({ good, neutral, bad, onLeaveFeedback }) => (
   <ul>
     <li>
